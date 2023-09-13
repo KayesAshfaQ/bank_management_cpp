@@ -2,6 +2,7 @@
 #include <string>
 using namespace std;
 
+// user class is an example of encapsulation
 // user model class
 class User
 {
@@ -51,6 +52,9 @@ public:
     }
 };
 
+// Account class is an example of abstraction
+// with pure virtual functions
+//
 // Abstract Base class
 class Account
 {
@@ -76,7 +80,9 @@ public:
     }
 };
 
-// Derived class from Account
+// SavingsAccount class is an example of inheritance
+// with polymorphism
+// it is a derived from abstract class Account
 class SavingsAccount : public Account
 {
     // property for savings account
@@ -93,6 +99,7 @@ public:
         this->user = user;
     }
 
+    // example of polymorphism
     // override method from base class Account
     //
     // overloaded method for process transaction
@@ -111,8 +118,7 @@ public:
         }
     }
 
-    // override method from base class Account
-    //
+    // example of polymorphism
     // overloaded method for process transaction
     //
     // method for process transaction with description
@@ -138,6 +144,9 @@ public:
     }
 };
 
+// DepositAccount class is an example of inheritance
+// with polymorphism
+// it is a derived from abstract class Account
 class DepositAccount : public Account
 {
     // properties for deposit account
@@ -154,6 +163,7 @@ public:
         this->totalMonths = totalMonths;
     }
 
+    // example of polymorphism
     // override method from base class Account
     //
     // type = 1 for deposit, type = 2 for withdrawal
@@ -169,6 +179,7 @@ public:
         }
     }
 
+    // example of polymorphism
     // overloaded method for process transaction
     //
     // method for process transaction with description
