@@ -2,9 +2,11 @@
 #include <string>
 using namespace std;
 
+// user model class
 class User
 {
 private:
+    // user properties
     string username;
     string phone;
     string address;
@@ -53,20 +55,20 @@ public:
 class Account
 {
 protected:
+    // Account properties
     string accountNumber;
     double balance;
 
 public:
+    // Constructor
     Account(string accNum, double initialBalance)
     {
         accountNumber = accNum;
         balance = initialBalance;
     }
 
-    // Abstract method
+    // Abstract methods
     virtual void processTransaction(double amount, int type) = 0;
-
-    virtual void processTransaction(double amount, int type, string description) = 0;
 
     virtual void displayInfo()
     {
@@ -74,21 +76,29 @@ public:
     }
 };
 
-// Derived class
+// Derived class from Account
 class SavingsAccount : public Account
 {
+    // property for savings account
     double interestRate;
 
 public:
+    // User pointer for savings account holder
     User *user;
 
+    // Constructor
     SavingsAccount(string accNum, double initialBalance, double rate, User *user) : Account(accNum, initialBalance)
     {
         this->interestRate = rate;
         this->user = user;
     }
 
-    // type = 1 for deposit, type = 2 for withdrawal
+    // override method from base class Account
+    //
+    // overloaded method for process transaction
+    //
+    // method for process transaction
+    // type = 1 means deposit, type = 2 means withdrawal
     void processTransaction(double amount, int type) override
     {
         if (type == 1)
@@ -101,18 +111,25 @@ public:
         }
     }
 
-    void processTransaction(double amount, int type, string description) override
+    // override method from base class Account
+    //
+    // overloaded method for process transaction
+    //
+    // method for process transaction with description
+    void processTransaction(double amount, int type, string description)
     {
         processTransaction(amount, type);
         cout << description << endl;
     }
 
+    // method for calculate interest
     void calculateInterest()
     {
         double interest = balance * (interestRate / 100);
         processTransaction(interest, 1);
     }
 
+    // method for display account info
     void displayInfo() override
     {
         cout << "Savings ";
@@ -123,11 +140,13 @@ public:
 
 class DepositAccount : public Account
 {
+    // properties for deposit account
     double monthlyDeposit;
     int completedMonths;
     int totalMonths;
 
 public:
+    // constructor
     DepositAccount(string accNum, double initialBalance, double monthlyDeposit, int completedMonths, int totalMonths) : Account(accNum, initialBalance)
     {
         this->monthlyDeposit = monthlyDeposit;
@@ -135,6 +154,8 @@ public:
         this->totalMonths = totalMonths;
     }
 
+    // override method from base class Account
+    //
     // type = 1 for deposit, type = 2 for withdrawal
     void processTransaction(double amount, int type) override
     {
@@ -148,12 +169,16 @@ public:
         }
     }
 
-    void processTransaction(double amount, int type, string description) override
+    // overloaded method for process transaction
+    //
+    // method for process transaction with description
+    void processTransaction(double amount, int type, string description)
     {
         processTransaction(amount, type);
         cout << description << endl;
     }
 
+    // method for pay monthly deposit
     void payDeposit()
     {
         if (completedMonths < totalMonths)
@@ -167,6 +192,7 @@ public:
         }
     }
 
+    // method for withdraw deposit
     void withdrawDeposit()
     {
         if (completedMonths < totalMonths)
@@ -180,11 +206,13 @@ public:
         }
     }
 
+    // method for calculate anticipated amount after deposit completed
     void totalDepositAmount()
     {
         cout << "Total Deposit for " << totalMonths / 12 << " Year. Amount: " << monthlyDeposit * totalMonths << " taka." << endl;
     }
 
+    // method for display account info & deposit info
     void displayInfo() override
     {
         Account::displayInfo();
@@ -192,6 +220,7 @@ public:
     }
 };
 
+// the main function
 int main()
 {
 
